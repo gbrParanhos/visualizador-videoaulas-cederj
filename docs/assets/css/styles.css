@@ -260,6 +260,27 @@
       line-height: 1.6;
     }
 
+    .foot.credit {
+      margin-top: 10px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .foot.credit b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .foot a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .foot a:hover {
+      text-decoration: underline;
+    }
+
     /* ---------- PLAYER (vídeo próprio + slide sincronizado) ---------- */
     #viewer {
       display: none;
