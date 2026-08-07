@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>CEDERJ · Player</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+  <!-- ================= PLAYER ================= -->
+  <div id="viewer" class="active">
+    <div id="vbar">
+      <button id="prevBtn" title="Aula anterior" aria-label="Aula anterior">◀</button>
+      <span id="vtitle"></span>
+      <button id="nextBtn" title="Próxima aula" aria-label="Próxima aula">▶</button>
+      <button id="stripBtn" title="Ocultar timeline de slides" aria-pressed="false">▦ Timeline</button>
+      <button id="fsBtn">⛶ Tela cheia</button>
+      <button id="exitBtn" title="Voltar ao catálogo" aria-label="Voltar ao catálogo">✕</button>
+    </div>
+    <div id="stage">
+      <div id="vidPane">
+        <video id="vid" playsinline preload="metadata" controls></video>
+        <iframe id="vframe" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+          style="display:none"></iframe>
+      </div>
+      <div id="slidePane">
+        <span id="slideBadge">–</span>
+        <img id="slideImg" alt="slide">
+        <div id="noSlide" style="display:none"></div>
+      </div>
+    </div>
+    <div id="vstrip"></div>
+    <div id="fallnote" class="hidden"></div>
+  </div>
+
+  <script src="../assets/js/core.js"></script>
+  <script src="../assets/js/player.js"></script>
+</body>
+
+</html>

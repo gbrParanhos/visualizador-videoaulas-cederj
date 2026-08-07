@@ -1,0 +1,593 @@
+    :root {
+      --bg: #0d1117;
+      --panel: #151b23;
+      --panel2: #1c2530;
+      --line: #2a323d;
+      --ink: #e8ecf1;
+      --muted: #8b96a5;
+      --accent: #4fb7ff;
+      --accent-ink: #04121c;
+      --ok: #67d59a;
+      --warn: #ffb454;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* ---------- CATÁLOGO ---------- */
+    #catalog {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px 14px calc(40px + env(safe-area-inset-bottom));
+    }
+
+    header.top {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: linear-gradient(var(--bg) 70%, rgba(13, 17, 23, 0));
+      padding: 8px 0 12px;
+      margin: -20px 0 6px;
+    }
+
+    h1 {
+      font-size: 19px;
+      margin: 6px 0 2px;
+      letter-spacing: .2px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin: 0 0 12px;
+    }
+
+    .search {
+      width: 100%;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      border-radius: 11px;
+      padding: 11px 13px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    .search:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .period {
+      margin-top: 18px;
+    }
+
+    .period>h2 {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin: 0 0 8px 2px;
+      font-weight: 600;
+    }
+
+    details.disc {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 9px;
+      overflow: hidden;
+    }
+
+    details.disc>summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 13px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14.5px;
+    }
+
+    details.disc>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .chev {
+      color: var(--muted);
+      transition: transform .18s;
+      flex: 0 0 auto;
+      font-size: 12px;
+    }
+
+    details.disc[open] .chev {
+      transform: rotate(90deg);
+    }
+
+    .disc-name {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .disc-code {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .disc-count {
+      color: var(--muted);
+      font-size: 12px;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      padding: 2px 9px;
+      border-radius: 20px;
+      flex: 0 0 auto;
+    }
+
+    .disc-warn {
+      color: var(--warn);
+      font-size: 11px;
+      background: rgba(255, 180, 84, .12);
+      border: 1px solid rgba(255, 180, 84, .4);
+      padding: 2px 8px;
+      border-radius: 20px;
+      flex: 0 0 auto;
+      font-weight: 600;
+    }
+
+    .lessons {
+      border-top: 1px solid var(--line);
+    }
+
+    .lesson {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px 10px 14px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .lesson:first-child {
+      border-top: none;
+    }
+
+    .lesson .num {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .lesson .lbl {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    .lesson .lbl small {
+      display: block;
+      color: var(--muted);
+      font-size: 10.5px;
+      margin-top: 1px;
+    }
+
+    .lesson .lbl small.slides {
+      color: var(--ok);
+    }
+
+    .lesson .lbl small.warn {
+      color: var(--warn);
+      font-weight: 600;
+    }
+
+    .lesson .lbl small .alt {
+      color: var(--muted);
+    }
+
+    .lesson.broken {
+      box-shadow: inset 3px 0 0 var(--warn);
+      background: rgba(255, 180, 84, .05);
+    }
+
+    .lesson.broken .num {
+      border-color: rgba(255, 180, 84, .5);
+      color: var(--warn);
+    }
+
+    .act {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      background: var(--panel2);
+      color: var(--ink);
+      border-radius: 9px;
+      padding: 8px 11px;
+      font-size: 12.5px;
+      font-family: inherit;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .act:active {
+      transform: scale(.95);
+    }
+
+    .act.play {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .act.slides[disabled] {
+      opacity: .28;
+      pointer-events: none;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 13.5px;
+      text-align: center;
+      padding: 40px 10px;
+    }
+
+    .foot {
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+      margin-top: 26px;
+      line-height: 1.6;
+    }
+
+    /* ---------- PLAYER (vídeo próprio + slide sincronizado) ---------- */
+    #viewer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      flex-direction: column;
+      z-index: 50;
+    }
+
+    #viewer.active {
+      display: flex;
+    }
+
+    #vbar {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      padding-top: calc(8px + env(safe-area-inset-top));
+      background: #0c0f14;
+      border-bottom: 1px solid #1e252f;
+    }
+
+    #vtitle {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+      color: #dfe8f2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #vbar button {
+      background: #1c2530;
+      color: var(--ink);
+      border: 1px solid #2a323d;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    #vbar button:active {
+      transform: scale(.96);
+    }
+
+    #vbar button:disabled {
+      opacity: .3;
+      pointer-events: none;
+    }
+
+    /* botões de navegação entre aulas (◀ ▶) — compactos, só ícone */
+    #prevBtn,
+    #nextBtn {
+      padding: 9px 11px;
+      font-size: 14px;
+    }
+
+    /* botão de colapsar/descolapsar a timeline de slides */
+    #stripBtn[aria-pressed="true"] {
+      background: var(--panel);
+      color: var(--muted);
+    }
+
+    #fsBtn {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    #stage {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      background: #000;
+    }
+
+    #vidPane,
+    #slidePane {
+      flex: 1 1 50%;
+      min-width: 0;
+      min-height: 0;
+      position: relative;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #vidPane video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+      display: block;
+    }
+
+    #vidPane iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    #slidePane {
+      background: #0a0a0a;
+    }
+
+    #slidePane img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    #slideBadge {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      font-size: 11px;
+      background: rgba(0, 0, 0, .6);
+      padding: 4px 9px;
+      border-radius: 20px;
+      color: #cfe3f5;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #noSlide {
+      color: #667;
+      font-size: 13px;
+      padding: 20px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* retrato: empilha vídeo em cima, slide embaixo */
+    @media (orientation:portrait) {
+      #stage {
+        flex-direction: column;
+      }
+    }
+
+    #vstrip {
+      flex: 0 0 auto;
+      background: #0c0f14;
+      border-top: 1px solid #1e252f;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 7px 8px;
+      scrollbar-width: thin;
+    }
+
+    #vstrip::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    #vstrip::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 3px;
+    }
+
+    #vstrip.hidden {
+      display: none;
+    }
+
+    .thumb {
+      flex: 0 0 auto;
+      width: 96px;
+      border: 2px solid transparent;
+      border-radius: 7px;
+      overflow: hidden;
+      background: #000;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 54px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumb .tt {
+      font-size: 9px;
+      color: var(--muted);
+      text-align: center;
+      padding: 2px 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .thumb .tn {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 9px;
+      background: rgba(0, 0, 0, .7);
+      color: #cfe3f5;
+      padding: 1px 5px;
+      border-radius: 10px;
+    }
+
+    .thumb.active {
+      border-color: var(--accent);
+    }
+
+    #fallnote {
+      flex: 0 0 auto;
+      font-size: 11px;
+      color: var(--warn);
+      text-align: center;
+      padding: 6px 12px calc(6px + env(safe-area-inset-bottom));
+      background: #0c0f14;
+      line-height: 1.4;
+    }
+
+    #fallnote.hidden {
+      display: none;
+    }
+
+    /* ---------- GALERIA DE SLIDES ---------- */
+    #gallery {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0d1117;
+      z-index: 60;
+      flex-direction: column;
+    }
+
+    #gallery.active {
+      display: flex;
+    }
+
+    #gbar {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      padding-top: calc(8px + env(safe-area-inset-top));
+      background: #0c0f14;
+      border-bottom: 1px solid #1e252f;
+    }
+
+    #gtitle {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+      color: #dfe8f2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #gtitle small {
+      color: var(--muted);
+    }
+
+    #gbar button {
+      background: #1c2530;
+      color: var(--ink);
+      border: 1px solid #2a323d;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    #gwatch {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    #gscroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px 10px calc(30px + env(safe-area-inset-bottom));
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .gslide {
+      max-width: 900px;
+      margin: 0 auto 16px;
+      background: #000;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .gslide .cap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 12px;
+      font-size: 11.5px;
+      color: var(--muted);
+      background: var(--panel);
+    }
+
+    .gslide .cap b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .gslide .cap .ts {
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+    }
+
+    .gslide img {
+      width: 100%;
+      display: block;
+      background: #fff;
+    }
