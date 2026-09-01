@@ -171,6 +171,21 @@ celular reflete no PC.
 
 ## ☁️ Sincronizar entre aparelhos
 
+> ⚠️ **Desligado no momento** (`EP.DRIVE_ENABLED = false` em `docs/assets/js/sync-config.js`).
+> O código está pronto e o Client ID já está no lugar, mas a Google exige que a home, a
+> política de privacidade e as **Authorized JavaScript origins** fiquem num domínio
+> verificado como seu — e ela **não aceita `github.io`** para isso, nem com a propriedade
+> verificada no Search Console (é sufixo público / plataforma de terceiros). Enquanto o
+> projeto não tiver domínio próprio, o botão ☁ mostra apenas o **backup por arquivo**, que
+> não depende do Google e funciona normalmente.
+>
+> **Para religar:** apontar um domínio (ou subdomínio) próprio para o GitHub Pages via
+> `CNAME`, cadastrar essa origem em *Authorized JavaScript origins*, preencher home /
+> privacidade / termos com URLs desse domínio, verificá-lo no Search Console (aí dá para
+> usar propriedade de **Domínio** com TXT no DNS) e voltar a flag para `true`.
+
+O resto desta seção descreve como a sincronia funciona quando ligada.
+
 Começar uma aula no celular e continuar no PC. O botão **☁** no topo do catálogo abre
 um menu com **Sincronizar**, e pronto.
 
@@ -209,7 +224,8 @@ faz nenhuma requisição a terceiros.
 ### Backup em arquivo (funciona sem Google)
 
 No mesmo menu: **Exportar backup** baixa um `.json`, **Importar backup** funde ele no
-que você já tem (não sobrescreve). Serve de backup e de plano B.
+que você já tem (não sobrescreve, funde por item igual à sincronia). É o que está ativo
+hoje, e também serve para levar o progresso de um aparelho a outro na mão.
 
 ### Configurando num fork
 

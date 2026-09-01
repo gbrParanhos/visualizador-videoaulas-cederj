@@ -10,6 +10,10 @@
 
   var btn = document.getElementById('syncBtn');
   if (!btn) return;
+  if (!EP.DRIVE_ENABLED) {
+    btn.title = 'Backup do seu progresso';
+    btn.setAttribute('aria-label', 'Backup do seu progresso');
+  }
   var panel = null, fileInput = null, busy = false;
 
   // ---- toast ----------------------------------------------------------------
@@ -52,7 +56,12 @@
   function render() {
     var D = EP.drive, rows = [];
 
-    if (!D.configured()) {
+    // Drive desligado (ver sync-config.js): nada de Google, só backup por arquivo.
+    if (!EP.DRIVE_ENABLED) {
+      rows.push('<p class="sync-state">Seu progresso fica guardado <b>neste navegador</b>.</p>');
+      rows.push('<p class="sync-note">Exporte um backup para não perder nada ao limpar os dados do ' +
+        'site — e para levar o progresso de um aparelho a outro.</p>');
+    } else if (!D.configured()) {
       rows.push('<p class="sync-state warn">Sincronização não configurada neste projeto.</p>');
       rows.push('<p class="sync-note">Falta o <b>Client ID</b> do Google em ' +
         '<code>assets/js/sync-config.js</code> — ele precisa terminar em ' +
@@ -75,7 +84,7 @@
     rows.push('<div class="sync-row">' +
       '<button class="act" data-do="export">⬇ Exportar backup</button>' +
       '<button class="act" data-do="import">⬆ Importar backup</button></div>');
-    if (D.connected()) rows.push('<button class="sync-link" data-do="disconnect">Desconectar este aparelho</button>');
+    if (EP.DRIVE_ENABLED && D.connected()) rows.push('<button class="sync-link" data-do="disconnect">Desconectar este aparelho</button>');
 
     // innerHTML recria o <input file>; guarda e recoloca.
     panel.removeChild(fileInput);
@@ -89,7 +98,7 @@
     btn.setAttribute('aria-expanded', 'true');
     // pré-carrega o SDK agora, para o clique em Conectar/Sincronizar ser um
     // gesto limpo e o popup não ser bloqueado.
-    if (EP.drive.configured()) EP.drive.loadGIS().catch(function () { });
+    if (EP.DRIVE_ENABLED && EP.drive.configured()) EP.drive.loadGIS().catch(function () { });
   }
   function close() {
     if (!panel || panel.hidden) return;
@@ -165,7 +174,7 @@
   });
 
   // ---- auto-sync ao abrir (só se o usuário marcou) ---------------------------
-  EP.drive.autoSync().then(function (st) {
+  if (EP.DRIVE_ENABLED) EP.drive.autoSync().then(function (st) {
     if (st && st.pulled) {
       toast('Sincronizado · ' + plural(st.pulled, 'alteração recebida', 'alterações recebidas'), 'ok');
       document.dispatchEvent(new CustomEvent('ep:synced'));

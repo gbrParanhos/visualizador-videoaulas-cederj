@@ -16,4 +16,17 @@
    Vazio (ou mal preenchido) = o menu ☁ avisa que o sync não está configurado.
    ========================================================================== */
 window.EP = window.EP || {};
+
+// ---------------------------------------------------------------------------
+// DRIVE DESLIGADO por enquanto — mantém o Client ID abaixo pronto para religar.
+//
+// A Google exige que a home, a política de privacidade e as origens do OAuth
+// fiquem num domínio verificado como seu, e ela NÃO aceita `github.io` para isso
+// (é sufixo público / plataforma de terceiros) — nem com a propriedade verificada
+// no Search Console. Enquanto não houver domínio próprio, o botão ☁ mostra apenas
+// o backup por arquivo, que não depende do Google.
+//
+// Para religar: apontar um domínio próprio para o Pages, cadastrar a origem em
+// "Authorized JavaScript origins" e voltar isto para true. Detalhes no README.
+EP.DRIVE_ENABLED = false;
 EP.SYNC_CLIENT_ID = '892778159277-t26dp88uet9qnmqmp432vsrhts772bog.apps.googleusercontent.com';
