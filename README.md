@@ -1,4 +1,4 @@
-# Vídeoaulas CEDERJ · Sistemas de Computação
+# Vídeoaulas CEDERJ · Sistemas de Computação (não-oficial)
 
 > ⚠️ **Projeto não-oficial**, feito por um aluno e **sem qualquer vínculo com o
 > CEDERJ/CECIERJ**. Todos os créditos das aulas e dos slides são deles e dos professores, aqui é só um facilitador para chegar mais rápido ao que já existia. Fonte oficial: <https://cederj.edu.br/videoaulas/>
