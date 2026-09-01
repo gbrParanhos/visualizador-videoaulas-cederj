@@ -13,7 +13,11 @@
   <!-- ================= CATÁLOGO ================= -->
   <div id="catalog">
     <header class="top">
-      <h1>Vídeoaulas CEDERJ · Sistemas de Computação</h1>
+      <div class="titlebar">
+        <h1>Vídeoaulas CEDERJ · Sistemas de Computação</h1>
+        <button id="syncBtn" title="Sincronizar progresso entre aparelhos" aria-label="Sincronizar"
+          aria-expanded="false">☁</button>
+      </div>
       <p class="sub">Escolha a matéria e a aula. <b>Assista</b> com o slide sincronizado ao lado, ou abra os
         <b>slides</b> para consulta.
       </p>
@@ -24,12 +28,17 @@
     <p class="foot credit">
       Projeto <b>não-oficial</b>, sem vínculo com o CEDERJ/CECIERJ, apenas um facilitador de acesso.
       Todos os créditos das aulas e dos slides são do CEDERJ/CECIERJ e dos professores.<br>
-      Fonte oficial: <a href="https://cederj.edu.br/videoaulas/" target="_blank" rel="noopener">cederj.edu.br/videoaulas</a>
+      Fonte oficial: <a href="https://cederj.edu.br/videoaulas/" target="_blank" rel="noopener">cederj.edu.br/videoaulas</a><br>
+      <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos de uso</a>
     </p>
   </div>
 
   <script src="assets/js/core.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/sync-config.js"></script>
+  <script src="assets/js/gdrive.js"></script>
   <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/syncui.js"></script>
 </body>
 
 </html>

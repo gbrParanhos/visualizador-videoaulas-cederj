@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1117">
+  <title>Política de Privacidade · Vídeoaulas CEDERJ</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <div class="doc">
+    <p class="doc-back"><a href="index.html">← voltar ao catálogo</a></p>
+    <h1>Política de Privacidade</h1>
+    <p class="doc-date">Última atualização: 31 de agosto de 2026</p>
+
+    <div class="doc-tldr">
+      <b>Resumo:</b> este site não tem servidor, não coleta nada e não envia nada para o autor
+      do projeto nem para terceiros. Seu progresso fica no seu navegador. Se, e só se, você
+      escolher usar a sincronização, ele passa a ficar também num arquivo no <b>seu</b> Google Drive.
+    </div>
+
+    <h2>Quem somos</h2>
+    <p>
+      O <b>Vídeoaulas CEDERJ</b> é um projeto <b>não-oficial</b>, feito por um aluno, <b>sem
+      qualquer vínculo com o CEDERJ/CECIERJ</b>. É um visualizador de conveniência para as
+      vídeoaulas que a própria instituição publica. O site é estático: são apenas arquivos
+      HTML, CSS e JavaScript servidos pelo GitHub Pages. <b>Não existe back-end, banco de dados
+      ou cadastro de usuários.</b>
+    </p>
+
+    <h2>O que fica guardado, e onde</h2>
+    <p>
+      Enquanto você usa o site, o próprio navegador guarda localmente (em
+      <code>localStorage</code>, no seu aparelho):
+    </p>
+    <ul>
+      <li>a <b>posição</b> em que você parou em cada aula;</li>
+      <li>quais aulas você marcou como <b>assistidas</b>;</li>
+      <li>a <b>duração</b> de cada aula que você abriu, usada só para calcular a porcentagem;</li>
+      <li>preferências de interface, como a timeline de slides estar recolhida.</li>
+    </ul>
+    <p>
+      Isso nunca é enviado para lugar nenhum por conta própria. Some se você limpar os dados do
+      site no navegador.
+    </p>
+
+    <h2>Sincronização com o Google Drive (opcional)</h2>
+    <p>
+      Existe um botão de sincronizar, <b>desligado por padrão</b>. Se você optar por conectá-lo:
+    </p>
+    <ul>
+      <li>
+        o app cria um arquivo <code>videoaulas-cederj.sync.json</code> no <b>seu</b> Google Drive,
+        com exatamente os dados listados acima, nada além disso;
+      </li>
+      <li>
+        o acesso pedido é o escopo <code>drive.file</code>, que permite ao app enxergar
+        <b>apenas os arquivos que ele mesmo criou</b>. Ele não consegue ler, listar ou modificar
+        mais nada da sua conta;
+      </li>
+      <li>
+        a comunicação é <b>direta entre o seu navegador e o Google</b>. Nada passa por um servidor
+        deste projeto, porque não existe nenhum. O autor não tem acesso ao seu arquivo;
+      </li>
+      <li>
+        o token de acesso fica apenas na memória da aba, some ao fechá-la e nunca é gravado em disco.
+      </li>
+    </ul>
+    <p>
+      Você pode desfazer isso quando quiser: apagar o arquivo direto no seu Drive, clicar em
+      <b>Desconectar este aparelho</b> no menu do site, e revogar o acesso do app em
+      <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">
+        myaccount.google.com/permissions</a>.
+    </p>
+
+    <h2>Sem cookies, sem rastreamento</h2>
+    <p>
+      O site <b>não usa cookies</b>, não tem analytics, não tem pixel de rastreamento e não exibe
+      anúncios. Não há perfil de usuário nem identificador que te acompanhe entre aparelhos,
+      a não ser, se você ligar a sincronização, a sua própria conta do Google.
+    </p>
+
+    <h2>Conteúdo de terceiros</h2>
+    <p>
+      Os vídeos e as imagens dos slides <b>não são hospedados aqui</b>: eles são carregados
+      diretamente dos servidores do EduPlay/RNP (<code>eduplay.rnp.br</code>), onde o CEDERJ
+      publica as aulas. Ao carregar esse conteúdo, o seu navegador contata aqueles servidores
+      diretamente, e eles enxergam o seu endereço IP e dados de requisição como aconteceria ao
+      visitar o site deles. Esse tratamento é regido pelas políticas da RNP e do CEDERJ, não por
+      esta. O mesmo vale para o Google, quando você usa a sincronização.
+    </p>
+
+    <h2>Menores de idade</h2>
+    <p>
+      O site não coleta dados de ninguém, de qualquer idade. A sincronização depende de uma conta
+      Google, sujeita às regras de idade da própria Google.
+    </p>
+
+    <h2>Mudanças</h2>
+    <p>
+      Se esta política mudar, a data no topo é atualizada. O histórico completo de alterações fica
+      público no repositório do projeto.
+    </p>
+
+    <h2>Contato</h2>
+    <p>
+      Dúvidas ou pedidos sobre privacidade: <b>gbrparanhos@gmail.com</b>.
+      Também é possível abrir uma <i>issue</i> no repositório do projeto no GitHub.
+    </p>
+
+    <p class="doc-back"><a href="index.html">← voltar ao catálogo</a></p>
+  </div>
+</body>
+
+</html>

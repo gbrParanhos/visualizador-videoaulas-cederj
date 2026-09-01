@@ -28,6 +28,7 @@
     var slideImg = document.getElementById('slideImg'), slideBadge = document.getElementById('slideBadge'), noSlide = document.getElementById('noSlide');
     var vstrip = document.getElementById('vstrip'), vtitle = document.getElementById('vtitle'), fallnote = document.getElementById('fallnote');
     var prevBtn = document.getElementById('prevBtn'), nextBtn = document.getElementById('nextBtn'), stripBtn = document.getElementById('stripBtn');
+    var doneChk = document.getElementById('doneChk');
 
     var slides = EP.slidesFor(aula.id), curIdx = -1;
     var embedMode = false;
@@ -35,27 +36,47 @@
     vtitle.textContent = EP.discCode(disc) + ' · ' + aula.label;
     document.title = EP.discCode(disc) + ' · ' + aula.label + ' · CEDERJ';
 
-    // ---- retomar de onde parou (localStorage) ----
+    // ---- retomar de onde parou (EP.store) ----
+    // O estado mora em assets/js/store.js (formato com timestamp por aula) — o
+    // mesmo que o sync do Drive lê e funde. Aqui só chamamos a API.
     var curAulaId = null, seekPending = 0, lastSaveT = 0;
-    var RESUME_PREFIX = 'eduplay:resume:';
-    function resumeKey(id) { return RESUME_PREFIX + id; }
-    function loadResume(id) { try { var v = parseFloat(localStorage.getItem(resumeKey(id))); return isFinite(v) && v > 0 ? v : 0; } catch (e) { return 0; } }
-    function saveResume(id, sec) { if (!id) return; try { localStorage.setItem(resumeKey(id), String(Math.floor(sec))); } catch (e) { } }
-    function clearResume(id) { if (!id) return; try { localStorage.removeItem(resumeKey(id)); } catch (e) { } }
+    function loadResume(id) { return EP.store.getResume(id); }
     function persistNow() {
       if (!curAulaId || vid.hidden || !isFinite(vid.currentTime)) return;
       var dur = vid.duration, t = vid.currentTime;
-      if (t < 5 || (isFinite(dur) && dur > 0 && t >= dur - 15)) clearResume(curAulaId);
-      else saveResume(curAulaId, t);
+      // < 5s ou nos últimos 15s = aula concluída: grava tombstone, não apaga
+      if (t < 5 || (isFinite(dur) && dur > 0 && t >= dur - 15)) EP.store.clearResume(curAulaId);
+      else EP.store.setResume(curAulaId, t);
     }
     window.addEventListener('beforeunload', persistNow);   // salva ao sair/navegar (prev/next/exit/F5)
     vid.addEventListener('pause', persistNow);
     vid.addEventListener('loadedmetadata', function () {
+      if (curAulaId && isFinite(vid.duration)) EP.store.setDuration(curAulaId, vid.duration);
       if (seekPending > 0) {
         var t = seekPending; seekPending = 0;
         if (!isFinite(vid.duration) || t < vid.duration - 2) { try { vid.currentTime = t; } catch (e) { } }
       }
     });
+
+    // ---- aula assistida ----
+    // Automático ao passar de 90% do vídeo, manual pelo checkbox. Funciona mesmo
+    // no modo embed (lá não há tempo para ler, mas dá para marcar na mão).
+    var DONE_AT = 0.9;
+    var autoDoneOff = false;   // desmarcar na mão suspende o automático nesta sessão
+
+    function pintaDone() { doneChk.checked = EP.store.isDone(aula.id); }
+    doneChk.addEventListener('change', function () {
+      EP.store.setDone(aula.id, doneChk.checked);
+      if (!doneChk.checked) autoDoneOff = true;   // senão o timeupdate remarcaria na hora
+    });
+    pintaDone();
+
+    function checkAutoDone() {
+      if (autoDoneOff || !curAulaId || EP.store.isDone(aula.id)) return;
+      var d = vid.duration;
+      if (!isFinite(d) || d <= 0) return;
+      if (vid.currentTime / d >= DONE_AT) { EP.store.setDone(aula.id, true); pintaDone(); }
+    }
 
     // ---- slide sincronizado ----
     function idxFor(ms) { var idx = -1; for (var i = 0; i < slides.length; i++) { if (slides[i].vlStart <= ms) idx = i; else break; } return idx; }
@@ -70,9 +91,13 @@
     }
     vid.addEventListener('timeupdate', function () {
       if (slides.length) { var i = idxFor(vid.currentTime * 1000); if (i >= 0) showSlide(i); }
-      if (curAulaId) { var t = vid.currentTime; if (Math.abs(t - lastSaveT) >= 5) { lastSaveT = t; persistNow(); } }
+      if (curAulaId) { var t = vid.currentTime; if (Math.abs(t - lastSaveT) >= 5) { lastSaveT = t; persistNow(); checkAutoDone(); } }
     });
-    vid.addEventListener('ended', function () { clearResume(curAulaId); });
+    vid.addEventListener('ended', function () {
+      if (!curAulaId) return;
+      EP.store.clearResume(curAulaId);
+      if (!autoDoneOff) { EP.store.setDone(aula.id, true); pintaDone(); }
+    });
 
     function buildStrip() {
       vstrip.innerHTML = '';
@@ -87,9 +112,7 @@
     }
 
     // ---- colapsar / descolapsar a timeline de slides ----
-    var STRIP_KEY = 'eduplay:stripCollapsed';
-    var stripCollapsed = false;
-    try { stripCollapsed = localStorage.getItem(STRIP_KEY) === '1'; } catch (e) { }
+    var stripCollapsed = EP.store.getPref('stripCollapsed', false) === true;
     function applyStrip() {
       var canShow = !embedMode && slides.length > 0;
       stripBtn.style.display = canShow ? '' : 'none';
@@ -101,7 +124,7 @@
     }
     stripBtn.addEventListener('click', function () {
       stripCollapsed = !stripCollapsed;
-      try { localStorage.setItem(STRIP_KEY, stripCollapsed ? '1' : '0'); } catch (e) { }
+      EP.store.setPref('stripCollapsed', stripCollapsed);
       applyStrip();
     });
 

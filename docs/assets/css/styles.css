@@ -94,6 +94,8 @@
     }
 
     details.disc>summary {
+      position: relative;
+      /* âncora da .disc-bar */
       cursor: pointer;
       list-style: none;
       padding: 13px 14px;
@@ -611,4 +613,356 @@
       width: 100%;
       display: block;
       background: #fff;
+    }
+
+    /* ---------- SYNC (menu ☁ do catálogo) ---------- */
+    .titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      /* âncora do #syncPanel */
+    }
+
+    .titlebar h1 {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    #syncBtn {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      background: var(--panel2);
+      color: var(--ink);
+      border-radius: 9px;
+      padding: 8px 11px;
+      font-size: 15px;
+      font-family: inherit;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    #syncBtn:active {
+      transform: scale(.95);
+    }
+
+    #syncBtn.spin {
+      animation: syncpulse 1s ease-in-out infinite;
+    }
+
+    @keyframes syncpulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .35;
+      }
+    }
+
+    #syncPanel {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 6px;
+      z-index: 20;
+      width: min(320px, calc(100vw - 28px));
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, .5);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #syncPanel[hidden] {
+      display: none;
+    }
+
+    .sync-state {
+      margin: 0;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .sync-state.ok::before {
+      content: "● ";
+      color: var(--ok);
+    }
+
+    .sync-state.warn {
+      color: var(--warn);
+    }
+
+    .sync-state small {
+      color: var(--muted);
+    }
+
+    .sync-note {
+      margin: 0;
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .sync-note code {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 1px 4px;
+      font-size: 10.5px;
+      color: var(--ink);
+    }
+
+    .sync-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .sync-check input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .sync-sep {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 2px 0;
+      width: 100%;
+    }
+
+    .sync-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sync-row .act {
+      flex: 1 1 0;
+      text-align: center;
+    }
+
+    .sync-link {
+      border: 0;
+      background: none;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 11.5px;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 2px 0;
+      align-self: flex-start;
+    }
+
+    /* progresso da aula no catálogo — é o que torna o sync visível */
+    .lesson .lbl small.resume {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ---------- TOAST ---------- */
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(18px + env(safe-area-inset-bottom));
+      transform: translate(-50%, 16px);
+      z-index: 60;
+      max-width: min(420px, calc(100vw - 28px));
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 11px 15px;
+      font-size: 12.5px;
+      line-height: 1.4;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    #toast.ok {
+      border-color: rgba(103, 213, 154, .5);
+    }
+
+    #toast.err {
+      border-color: rgba(255, 180, 84, .6);
+      color: var(--warn);
+    }
+
+    /* ---------- PROGRESSO (aula assistida / % da matéria) ---------- */
+    .disc-prog {
+      color: var(--muted);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      flex: 0 0 auto;
+    }
+
+    details.disc.completa .disc-prog {
+      color: var(--ok);
+      font-weight: 600;
+    }
+
+    /* barra fina no rodapé do cabeçalho da disciplina */
+    .disc-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--line);
+    }
+
+    .disc-bar>i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--ok);
+      transition: width .25s ease;
+    }
+
+    .lesson .lbl small.done {
+      color: var(--ok);
+      font-weight: 600;
+    }
+
+    .lesson.watched .num {
+      border-color: rgba(103, 213, 154, .45);
+      color: var(--ok);
+    }
+
+    /* botão de marcar assistida na listagem */
+    .act.done {
+      padding: 8px 10px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .act.done[aria-pressed="true"] {
+      background: rgba(103, 213, 154, .16);
+      border-color: rgba(103, 213, 154, .55);
+      color: var(--ok);
+    }
+
+    /* checkbox "Assistida" na barra do player */
+    #doneWrap {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #1c2530;
+      border: 1px solid #2a323d;
+      border-radius: 9px;
+      padding: 8px 11px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+    }
+
+    #doneWrap input {
+      width: 15px;
+      height: 15px;
+      margin: 0;
+      accent-color: var(--ok);
+      cursor: pointer;
+    }
+
+    #doneWrap:has(input:checked) {
+      border-color: rgba(103, 213, 154, .55);
+      color: var(--ok);
+    }
+
+    /* telas estreitas: o texto sai, fica só o checkbox */
+    @media (max-width: 560px) {
+      #doneWrap span {
+        display: none;
+      }
+    }
+
+    /* ---------- PÁGINAS DE TEXTO (privacidade, termos) ---------- */
+    .doc {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 26px 16px calc(48px + env(safe-area-inset-bottom));
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .doc h1 {
+      font-size: 22px;
+      margin: 0 0 4px;
+    }
+
+    .doc h2 {
+      font-size: 15px;
+      margin: 30px 0 8px;
+      color: var(--accent);
+    }
+
+    .doc p {
+      margin: 0 0 12px;
+      color: #c9d3df;
+    }
+
+    .doc ul {
+      margin: 0 0 12px;
+      padding-left: 20px;
+      color: #c9d3df;
+    }
+
+    .doc li {
+      margin-bottom: 7px;
+    }
+
+    .doc b {
+      color: var(--ink);
+    }
+
+    .doc a {
+      color: var(--accent);
+    }
+
+    .doc code {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-size: 12px;
+      color: var(--ink);
+    }
+
+    .doc-date {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0 0 22px !important;
+    }
+
+    .doc-back {
+      font-size: 12.5px;
+      margin: 0 0 18px !important;
+    }
+
+    .doc-tldr {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 13px 15px;
+      margin-bottom: 8px;
+      color: #c9d3df;
     }
